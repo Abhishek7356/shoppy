@@ -1,0 +1,24 @@
+import './App.css';
+import { Typography, Button, TextField, Container } from '@mui/material'
+import Header from './components/Header';
+import Footer from './components/Footer';
+import Home from './pages/Home';
+import { Route, Routes } from 'react-router-dom';
+import Cart from './pages/Cart';
+import Wishlist from './pages/Wishlist';
+
+function App() {
+  return (
+    <>
+      <Header />
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/cart' element={<Cart />} />
+        <Route path='/wishlist' element={<Wishlist />} />
+      </Routes>
+      <Footer />
+    </>
+  );
+}
+
+export default App;
