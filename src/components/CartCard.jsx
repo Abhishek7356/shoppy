@@ -1,27 +1,36 @@
 import React from 'react'
 import { Box, Button, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material'
+import { useDispatch } from 'react-redux'
+import { deleteFromCartRequest } from '../redux/cartSlice'
 
 
-const CartCard = () => {
+const CartCard = ({ product }) => {
+    console.log(product)
+    const dispatch = useDispatch()
+
+    const handleRemoveFromCart = async () => {
+        dispatch(deleteFromCartRequest(product._id))
+    }
+
     return (
         <Card sx={{ display: 'flex', alignItems: 'space-between', padding: '20px' }}>
             <CardMedia
                 component="img"
-                sx={{ width: 180 }}
-                image="https://th.bing.com/th/id/OIP.4Xv_eI6NtXzMxW6dInXuaQAAAA?rs=1&pid=ImgDetMain"
+                sx={{ width: 180, height: 180, objectFit: 'contain' }}
+                image={product?.image}
                 alt="Live from space album cover"
             />
-            <Box sx={{ display: 'flex',flex:'1', flexDirection: 'column' }}>
+            <Box sx={{ display: 'flex', flex: '1', flexDirection: 'column' }}>
                 <CardContent sx={{ flex: '1 0 auto' }}>
-                    <Typography component="div" variant="h5">
-                        Shoes
+                    <Typography sx={{ maxWidth: '500px' }} component="div" variant="h5">
+                        {product?.name}
                     </Typography>
                     <Typography variant="subtitle1" color="text.secondary" component="div">
-                        $ 120
+                        ₹ {product?.price}
                     </Typography>
                 </CardContent>
                 <CardActions >
-                    <Button sx={{ marginLeft: 'auto' }}>Remove from cart</Button>
+                    <Button onClick={handleRemoveFromCart} sx={{ marginLeft: 'auto' }}>Remove from cart</Button>
                 </CardActions>
             </Box>
         </Card>
