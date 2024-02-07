@@ -11,5 +11,4 @@ export const commonApi = async (method, url, data) => {
     
     return await axios(axiosConfig)
         .then((res) => res)
-        .catch((err) => err)
 };

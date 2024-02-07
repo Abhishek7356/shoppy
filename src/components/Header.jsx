@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { AppBar, Badge, Box, Button, Tab, Tabs, Toolbar, Typography } from '@mui/material'
+import { AppBar, Badge, Box, Button, Tab, Tabs, Toolbar, Typography, IconButton } from '@mui/material'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { Link } from 'react-router-dom'
@@ -36,16 +36,24 @@ const Header = () => {
                         Shoppy
                     </Typography></Link>
                     <Box sx={{ marginLeft: 'auto', display: 'flex', gap: '30px' }}>
-                        <Badge badgeContent={cartList.length} color="error">
-                            <Link to={'/cart'} style={{ color: 'inherit' }}><ShoppingCartIcon /></Link>
-                        </Badge>
-                        <Badge badgeContent={wishLists.length} color="error">
-                            <Link to={'/wishlist'} style={{ color: 'inherit' }}><FavoriteIcon /></Link>
-                        </Badge>
+                        <Link to={'/cart'} style={{ color: 'inherit' }}>
+                            <IconButton color='inherit'>
+                                <Badge badgeContent={cartList.length} color="error">
+                                    <ShoppingCartIcon />
+                                </Badge>
+                            </IconButton>
+                        </Link>
+                        <Link to={'/wishlist'} style={{ color: 'inherit' }}>
+                            <IconButton color='inherit'>
+                                <Badge badgeContent={wishLists.length} color="error">
+                                    <FavoriteIcon />
+                                </Badge>
+                            </IconButton>
+                        </Link>
                     </Box>
                 </Toolbar>
             </AppBar>
-        </div>
+        </div >
     )
 }
 

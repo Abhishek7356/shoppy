@@ -16,9 +16,8 @@ export const addTocartRequest = createAsyncThunk('add/cart/items', async (body) 
     // console.log(body)
     const res = await addCartItem(body);
     console.log(res)
-    if (res.status == 200) {
-        return body
-    }
+    return body
+
 })
 
 export const deleteFromCartRequest = createAsyncThunk('delete/cart/items', async (id) => {
@@ -60,6 +59,11 @@ const cartSlice = createSlice({
             } else {
                 alert("already exist")
             }
+        })
+
+        builder.addCase(addTocartRequest.rejected, (state, action) => {
+            alert("Product already exist")
+            console.log(action)
         })
 
         builder.addCase(deleteFromCartRequest.fulfilled, (state, action) => {

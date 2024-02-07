@@ -16,9 +16,8 @@ export const addToWishlistRequest = createAsyncThunk('add/wishlist/items', async
     // console.log(body)
     const res = await addwishlistItem(body);
     console.log(res)
-    if (res.status == 200) {
-        return body
-    }
+    return body
+
 })
 
 export const deleteFromWishlistRequest = createAsyncThunk('delete/wishlist/items', async (id) => {
@@ -60,6 +59,11 @@ const wishlistSlice = createSlice({
             } else {
                 alert("already exist")
             }
+        })
+
+        builder.addCase(addToWishlistRequest.rejected, (state, action) => {
+            alert("Product already exist")
+            console.log(action)
         })
 
         builder.addCase(deleteFromWishlistRequest.fulfilled, (state, action) => {
