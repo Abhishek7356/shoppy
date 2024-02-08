@@ -25,12 +25,12 @@ const Cart = () => {
         <div ref={scrollRef} style={{ padding: '100px 0', minHeight: '90vh', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
             <Container maxWidth='xl'>
                 <Grid container spacing={1}>
-                    <Grid item xs={12} md={9} >
+                    <Grid item xs={12} sm={8} md={9} >
                         <Box sx={{ display: 'flex', flexDirection: 'column', gap: '10px', flex: '1' }}>
                             {allCartItems.length > 0 ? allCartItems : <Typography variant='h4' sx={{ textAlign: 'center' }}>Cart is empty !</Typography>}
                         </Box>
                     </Grid>
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={12} sm={4} md={3}>
                         <CartTotal />
                     </Grid>
                 </Grid>

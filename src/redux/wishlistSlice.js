@@ -39,7 +39,7 @@ const wishlistSlice = createSlice({
 
         builder.addCase(addToWishlistRequest.fulfilled, (state, action) => {
             if (action.payload.status == 200) {
-                return { ...state, loading: false, data: action.payload }
+                return { ...state, loading: false, data: action.payload.data }
             } else if (action.payload.status == 203) {
                 alert(action.payload.data)
                 return { ...state, loading: false, error: action.payload.data }
