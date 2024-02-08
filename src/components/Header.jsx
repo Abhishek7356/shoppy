@@ -9,8 +9,8 @@ import { fetchAllWishlistItems } from '../redux/wishlistSlice';
 
 const Header = () => {
 
-    const cartList = useSelector(state => state.cartReducer)
-    const wishLists = useSelector(state => state.wishlistReducer)
+    const cartList = useSelector(state => state.cartReducer.data)
+    const wishLists = useSelector(state => state.wishlistReducer.data)
     const dispatch = useDispatch()
 
     useEffect(() => {

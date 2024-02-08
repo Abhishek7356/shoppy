@@ -10,7 +10,7 @@ import Wishlist from './pages/Wishlist';
 function App() {
   return (
     <>
-      <Box sx={{width:'100vw',minHeight:'100vh',display:'flex',flexDirection:'column',justifyContent:'space-between'}}>
+      <Box sx={{minHeight:'100vh',display:'flex',flexDirection:'column',justifyContent:'space-between'}}>
         <Header />
         <Routes>
           <Route path='/' element={<Home />} />

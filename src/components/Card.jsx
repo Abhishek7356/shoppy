@@ -21,8 +21,8 @@ const CardCom = ({ isWishlist, product }) => {
     }
 
     return (
-        <div style={{ margin: '30px 0' }}>
-            <Card sx={{ width: { xs: '92vw', sm: 270 } }}>
+        <div style={{ margin: '30px 0', width: '100%' }}>
+            <Card sx={{ width: '100%', pt: '10px' }}>
                 <CardMedia
                     component={'img'}
                     alt='Product Img'
@@ -33,7 +33,7 @@ const CardCom = ({ isWishlist, product }) => {
                 />
                 <CardContent>
                     <Typography gutterBottom variant="h6" sx={{ textAlign: 'center' }} component="div">
-                        {product?.name?.slice(0, 18)}...
+                        {product?.name?.slice(0, 10)}...
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
                         ₹ {product?.price}

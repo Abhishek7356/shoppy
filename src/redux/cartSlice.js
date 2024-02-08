@@ -1,73 +1,52 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { addCartItem, deleteCartItem, getAllCartItems } from '../services/allApi';
+import { createSlice, createAsyncThunk, isRejectedWithValue } from '@reduxjs/toolkit'
+import axios from 'axios';
+import { BASE_URL } from './baseUrl';
 
 
-const initialState = [];
+const initialState = {
+    loading: true,
+    data: [],
+    error: ""
+}
 
 export const fetchAllCartItems = createAsyncThunk('fetch/cart/items', async () => {
-    const res = await getAllCartItems();
-    console.log(res)
-    if (res.status == 200) {
-        return res.data
-    }
+    return await axios.get(`${BASE_URL}/api/cart/get/item`)
+        .then((res) => res.data)
 })
 
 export const addTocartRequest = createAsyncThunk('add/cart/items', async (body) => {
-    // console.log(body)
-    const res = await addCartItem(body);
-    console.log(res)
-    return body
-
+    return await axios.post(`${BASE_URL}/api/cart/add/item`, body)
+        .then((res) => res)
 })
 
 export const deleteFromCartRequest = createAsyncThunk('delete/cart/items', async (id) => {
-    const res = await deleteCartItem(id);
-    console.log(res)
-    if (res.status == 200) {
-        return id
-    }
+    return await axios.delete(`${BASE_URL}/api/cart/delete/item/${id}`)
+        .then((res) => id)
 })
 
 const cartSlice = createSlice({
     name: 'cart',
     initialState,
-    // reducers: {
-    //     createCart: (state, action) => {
-    //         return action.payload.map((item) => {
-    //             return item.product
-    //         })
-    //     },
-    //     addToCart: (state, action) => {
-    //         if (!state.some(item => item._id == action.payload._id)) {
-    //             state.push(action.payload)
-    //         } else {
-    //             alert("already exist")
-    //         }
-    //     },
-    //     deleteCartProduct: (state, action) => {
-    //         return state.filter((item) => item._id != action.payload)
-    //     }
-    // },
     extraReducers: (builder) => {
         builder.addCase(fetchAllCartItems.fulfilled, (state, action) => {
-            return action.payload.map(item => item.product)
+            return { ...state, loading: false, data: action.payload }
         })
 
         builder.addCase(addTocartRequest.fulfilled, (state, action) => {
-            if (!state.some(item => item._id == action.payload._id)) {
-                state.push(action.payload)
-            } else {
-                alert("already exist")
+            if (action.payload.status == 200) {
+                return { ...state, loading: false, data: action.payload }
+            } else if (action.payload.status == 203) {
+                alert(action.payload.data)
+                return { ...state, loading: false, error: action.payload.data }
             }
         })
-
         builder.addCase(addTocartRequest.rejected, (state, action) => {
-            alert("Product already exist")
+            alert("Something went wrong !")
             console.log(action)
         })
 
         builder.addCase(deleteFromCartRequest.fulfilled, (state, action) => {
-            return state.filter((item) => item._id != action.payload)
+            state.data = state.data.filter((item) => item.product._id != action.payload)
         })
     }
 })

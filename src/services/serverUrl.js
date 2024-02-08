@@ -1,1 +1,0 @@
-export const BASE_URL = 'https://shoppy-backend-nzkh.onrender.com';

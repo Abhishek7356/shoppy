@@ -4,10 +4,10 @@ import { useSelector } from 'react-redux'
 
 const CartTotal = () => {
 
-    const cartItems = useSelector(state => state.cartReducer)
+    const cartItems = useSelector(state => state.cartReducer.data)
 
     return (
-        <Card sx={{ minWidth: { xs: '350px', md: 350 } }}>
+        <Card sx={{ width: '100%' }}>
             <CardContent sx={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                 <Typography variant="h5" component="div" sx={{ textAlign: 'center' }}>
                     Cart details
@@ -15,7 +15,7 @@ const CartTotal = () => {
                 <hr />
                 <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                     <Typography variant="h6" component="div">
-                       Total Items
+                        Total Items
                     </Typography>
                     <Typography variant="h6" component="div">
                         {cartItems.length}-Items
@@ -35,12 +35,12 @@ const CartTotal = () => {
                         Total Price
                     </Typography>
                     <Typography variant="h6" component="div">
-                        ₹ {cartItems.length > 0 ? cartItems?.map(item => item.price)?.reduce((a, b) => a + b) : 0}
+                        ₹ {cartItems.length > 0 ? cartItems?.map(item => item?.product?.price)?.reduce((a, b) => a + b) : 0}
                     </Typography>
                 </Box>
             </CardContent>
             <CardActions>
-                <Button variant="contained" size="small" color='primary'>Place Order</Button>
+                <Button size="small" color='success' variant='outlined'>Place Order</Button>
             </CardActions>
         </Card>
     )
